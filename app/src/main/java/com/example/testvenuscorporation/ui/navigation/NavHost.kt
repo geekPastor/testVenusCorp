@@ -18,7 +18,6 @@ import com.example.testvenuscorporation.ui.screens.productList.HomeRoute
 @Composable
 fun AppNav(
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier
 ){
     var product by remember {
         mutableStateOf(ProductData())

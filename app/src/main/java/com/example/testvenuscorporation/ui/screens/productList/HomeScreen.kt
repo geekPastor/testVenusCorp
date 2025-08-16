@@ -12,7 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -50,14 +53,12 @@ fun Home(
     navigate: (ProductData) -> Unit
 ){
     val products = listOf<ProductData>(
-        ProductData(nom = " Polo Home 1", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.imag1)),
-        ProductData(nom = " Polo Home 2", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img2)),
-        ProductData(nom = " Polo Home 3", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img3)),
-        ProductData(nom = " Polo Home 4", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img4)),
-        ProductData(nom = " Polo Home 5", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img5))
+        ProductData(nom = " T-shιrt noir ", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.imag1)),
+        ProductData(nom = " Polo Cyan", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img2)),
+        ProductData(nom = " Polo  Lacoste Bleu", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img3)),
+        ProductData(nom = " Polo Lacoste Noir", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img4)),
+        ProductData(nom = " Polo Lacoste old", description = "POLO CIGALE EN COTON BIO Affichez votre passion pour la Provence avec notre polo à coupe droite finement décoré avec notre cigale intemporelle. Ce polo est confectionné avec soin dans notre propre atelier textile à Aix en Provence. Pour le moment, nos polos bleu ont notre nouvelle cigale, les polos vert sont brodés. ©Sudist - Modèle déposé", image = painterResource(R.drawable.img5))
     )
-
-
 
     var query by remember {
         mutableStateOf("")
@@ -71,8 +72,45 @@ fun Home(
 
     Column(
         modifier = Modifier
-            .padding(top = 20.dp, start = 10.dp, end = 10.dp)
+            .padding(10.dp)
     ) {
+        Column(
+            modifier = Modifier.clickable(
+                onClick = {
+                    showProductSearch = !showProductSearch
+                }
+            )
+        ) {
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                label = { Text("Rechercher un produit") },
+                modifier = Modifier
+                    .background(color = Color.Transparent, shape = RoundedCornerShape(15.dp))
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(15.dp),
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = Color.Gray.copy(0.4f)
+                ),
+                textStyle = TextStyle(
+                    color = Color.Black
+                ),
+                readOnly = true,
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null,
+                        modifier = Modifier.clickable(
+                            onClick = {
+                                showProductSearch = !showProductSearch
+                            }
+                        )
+                    )
+                }
+            )
+        }
+
         LazyColumn {
             items(products){product->
                 ProductComponent(
@@ -86,7 +124,10 @@ fun Home(
 
         if (showProductSearch){
             ModalBottomSheet(
-                onDismissRequest = {}
+                onDismissRequest = {
+                    showProductSearch = !showProductSearch
+                },
+                sheetState = sheetState
             ) {
                 var productList = products
 
@@ -100,7 +141,7 @@ fun Home(
                     .background(Color.White)
                     .padding(16.dp))
                 {
-                    androidx.compose.material3.OutlinedTextField(
+                    OutlinedTextField(
                         value = query,
                         onValueChange = { query = it },
                         label = { Text("Rechercher un produit") },
@@ -125,7 +166,11 @@ fun Home(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(8.dp)
+                                    .padding(8.dp).clickable(
+                                        onClick = {
+                                            navigate(product)
+                                        }
+                                    )
                             ) {
                                 Text(text = product.nom)
                             }
@@ -138,9 +183,8 @@ fun Home(
                                     modifier = Modifier
                                         .padding(16.dp)
                                         .fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-
-                                    )
+                                    textAlign = TextAlign.Center
+                                )
                             }
                         }
                     }
